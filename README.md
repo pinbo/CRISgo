@@ -42,3 +42,11 @@ Command line parameters:
 3. If you do not understand, you can just use `CRISgov2.go`, which is R1/R2 insensitive.
 
 4. It now only support search fastq files, not fastq.gz files. I will try to add .gz support later.
+
+## Get the binary file
+
+You can go to "**Releases**" to download the version you need (v2 is flexible than v3, but a little slow).
+
+You can also install golang on your computer, then run the command below to compile it for your own computer.
+
+`go build CRISgov3.go`
