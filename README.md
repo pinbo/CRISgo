@@ -1,18 +1,18 @@
 # CRISgo
 
-The Golang implementation of CRIS.py (https://github.com/pinbo/CRIS.py).
+The Golang implementation of CRISpyJZ (https://github.com/pinbo/CRISpyJZ).
 
-CRISgo is a tool to process NGS data of CRISPR editings. I Just rewrote CRIS.py with golang to speed it up, because I found it kind of slow when you have more than 100 fastq files to process.
+CRISgo is a tool to process NGS data of CRISPR editings. I Just rewrote CRISpyJZ with golang to speed it up, because I found it kind of slow when you have more than 100 fastq files to process.
 
-Just like CRIS.py, CRISgo searches two flanking sequences of gRNA in fastq files (plan text files), and check whether the gRNA was edited and compare the length with the wild type sequence to see whether there is an indel.
+Just like CRISpyJZ, CRISgo searches two flanking sequences of gRNA in fastq files (plan text files), and check whether the gRNA was edited and compare the length with the wild type sequence to see whether there is an indel.
 
-To understand how it works, you can read the CRIS.py paper, [CRIS.py: A Versatile and High-throughput Analysis Program for CRISPR-based Genome Editing](https://www.nature.com/articles/s41598-019-40896-w).
+To understand how it works, check out the **README** of [CRISpyJZ](https://github.com/pinbo/CRISpyJZ) and [CRIS.py](https://github.com/patrickc01/CRIS.py), and read the original CRIS.py paper, [CRIS.py: A Versatile and High-throughput Analysis Program for CRISPR-based Genome Editing](https://www.nature.com/articles/s41598-019-40896-w).
 
-## Difference from CRIS.py
+## Differences from CRISpyJZ
 
-1. It is written in golang, and the compiled version is about 15 to 20 times faster than CRIS.py.
+1. It is written in golang, and the compiled version is about 15 to 20 times faster than CRISpyJZ.
 
-2. It searches both reads (R1 and R2 fastq files) automatically, so you do not need to use the reverse complement sequences to search again. 
+2. The strand option was removed. So you need give all 3 sequences in the arguments from the same strand of the reference file.
 
 ## Usage
 
@@ -45,7 +45,7 @@ Command line parameters:
 
 ## Get the binary file
 
-You can go to "**Releases**" to download the version you need (v2 is flexible than v3, but a little slow).
+You can go to ["**Releases**"](https://github.com/pinbo/CRISgo/releases) to download the version you need (v2 is flexible than v3, but a little slow).
 
 You can also install golang on your computer, then run the command below to compile it for your own computer.
 
