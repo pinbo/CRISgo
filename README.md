@@ -24,8 +24,6 @@ To understand how it works, check out the **README** of [CRISpyJZ](https://githu
 
 - **CRISgov3** and **CRISgov4** suppose your input sequences on the 'xxxx_R1_001.fastq.gz' files, so first search on these files, then use the reverse complements of your input sequences to search 'xxxx_R2_001.fastq.gz' files.
 
-
-
 ## Usage
 
 ```sh
@@ -44,6 +42,16 @@ Command line parameters:
 4. **left_flanking_sequence**: left flanking sequence, a unique ~20bp sequence in your reference. Must be at **5'** of the gRNA sequence. Case insensitive.
 5. **right_flanking_sequence**: right flanking sequence, a unique ~20bp sequence in your reference. Must be at **3'** of the gRNA sequence. Case insensitive.
 6. **gRNA_sequence** : your gRNA sequence (or its reverse complement sequence it is on the "-" strand). Case insensitive.
+
+## Outputs
+
+Two files will be created:
+
+1. A csv file with the editing efficiency and top 10 indels in each fastq file.
+
+2. A txt file with names "top10_reads_xxxx.txt" that lists the top 10 most abundant reads in each fastq file.
+
+See the "**Examples**" folder for some example outputs. The "**Examples**" folder has paired end fastq files from [CRIS.py](https://github.com/patrickc01/CRIS.py). You can download the proper version of CRISgo and test on your computer. 
 
 ## Notes
 
