@@ -14,6 +14,18 @@ To understand how it works, check out the **README** of [CRISpyJZ](https://githu
 
 2. The strand option was removed. So you need give all 3 sequences in the arguments from the same strand of the reference file.
 
+## Differences among CRISgov2, CRISgov3, and CRISgov4
+
+- **CRISgov2** and **CRISgov3** process ".fastq" files, which are uncompressed. You need to uncompress the ".fastq.gz" files first. In window system, you can use 7-Zip to unzip all the .gz files.
+
+- **CRISgov4** processes directly on "fastq.gz" files, so no need to uncompress first.
+
+- **CRISgov2** searches the input sequences in all the "fastq" files first, then searches using the reverse complements of the input sequences to search on those fastq files that have 0 matches in the first round search. So it is "orientation" insenstive.
+
+- **CRISgov3** and **CRISgov4** suppose your input sequences on the 'xxxx_R1_001.fastq.gz' files, so first search on these files, then use the reverse complements of your input sequences to search 'xxxx_R2_001.fastq.gz' files.
+
+
+
 ## Usage
 
 ```sh
@@ -40,8 +52,6 @@ Command line parameters:
 2. `CRISgov3.go` supposes all the 3 sequences are in the R1 fastq files if your NGS are paired end. It will search the 3 sequences in all the R1 fastq files, then use the reverse complment of the 3 sequences to search the R2 fastq files. You can use command like `grep your-sgRNA-sequence *_R1_*.fastq | less` and `grep your-sgRNA-sequence *_R2_*.fastq| less` to make sure your flanking sequences and sgRNA sequences are on the same strand as the R1 fastq files.
 
 3. If you do not understand, you can just use `CRISgov2.go`, which is R1/R2 insensitive.
-
-4. It now only support search fastq files, not fastq.gz files. I will try to add .gz support later.
 
 ## Get the binary file
 
