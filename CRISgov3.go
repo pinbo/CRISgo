@@ -13,7 +13,7 @@ import (
 func main() {
     //command line parameters: reference file, output-name, reference-gene-name, left-flanking sequence, right flanking sequence, and sgRNA sequence
     if len(os.Args) < 7 {
-        fmt.Println("Please provide 6 arguments: reference file, reference-name, output-name, left-flanking sequence, right flanking sequence, and sgRNA sequence")
+        fmt.Println("Please provide 6 arguments: reference file, output name, gene name in the reference file,  left flanking sequence, right flanking sequence, and sgRNA sequence")
         os.Exit(1)
     }
     refLib := os.Args[1]
