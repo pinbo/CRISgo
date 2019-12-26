@@ -1,0 +1,5 @@
+fastq_file,number_of_matched_reads,number_of_reads_with_intact_gRNA,%intact_gRNA,total_indel,%indel,number_of_reads_with_leftSeq,number_of_reads_with_rightSeq,nleftSeq/nrightSeq,#1_indel,#1_indel_count,#2_indel,#2_indel_count,#3_indel,#3_indel_count,#4_indel,#4_indel_count,#5_indel,#5_indel_count,#6_indel,#6_indel_count,#7_indel,#7_indel_count,#8_indel,#8_indel_count,#9_indel,#9_indel_count,#10_indel,#10_indel_count
+Miller-Plate07-H09-GTTCTCCCAC-ATGTCC_S93_L001_R1_001.fastq,1767,1749,98.98,2,0.11,1780,1788,1.0,0,1765 (99.9%),-1,2 (0.1%),
+Miller-Plate07-H10-ATTATGACAT-ATGTCC_S94_L001_R1_001.fastq,1963,440,22.41,1019,51.91,2014,2007,1.0,0,944 (48.1%),-7,187 (9.5%),-2,117 (6.0%),-6,85 (4.3%),-8,84 (4.3%),-1,75 (3.8%),-5,62 (3.2%),-11,52 (2.6%),-4,44 (2.2%),-13,40 (2.0%),
+Miller-Plate07-H09-GTTCTCCCAC-ATGTCC_S93_L001_R2_001.fastq,1660,1616,97.35,1,0.06,1745,1675,1.0,0,1659 (99.9%),-1,1 (0.1%),
+Miller-Plate07-H10-ATTATGACAT-ATGTCC_S94_L001_R2_001.fastq,1818,401,22.06,938,51.60,1982,1859,1.1,0,880 (48.4%),-7,173 (9.5%),-2,95 (5.2%),-6,81 (4.5%),-8,81 (4.5%),-1,69 (3.8%),-5,59 (3.2%),-11,51 (2.8%),1,39 (2.1%),-4,38 (2.1%),
