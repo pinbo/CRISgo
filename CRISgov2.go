@@ -13,6 +13,7 @@ import (
 func main() {
     //command line parameters: reference file, output-name, reference-gene-name, left-flanking sequence, right flanking sequence, and sgRNA sequence
     if len(os.Args) < 7 {
+        fmt.Println("This program processes all the files with extension '.fastq' in the current folder.")
         fmt.Println("Please provide 6 arguments: reference file, output name, gene name in the reference file,  left flanking sequence, right flanking sequence, and sgRNA sequence")
         os.Exit(1)
     }
