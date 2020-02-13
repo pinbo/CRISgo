@@ -207,7 +207,7 @@ func getWholeSeq (refseq string, leftSeq string, rightSeq string) string {
     if s.Contains(refseq, leftSeq) && s.Contains(refseq, rightSeq) {
         start := s.Index(refseq, leftSeq)
         end := s.Index(refseq, rightSeq) + len(rightSeq)
-        return refseq[start:(end + 1)]
+        return refseq[start:end]
     } else if s.Contains(refseq, leftSeq) {
         fmt.Println("Error, rightSeq is not in the refseq")
         return ""
