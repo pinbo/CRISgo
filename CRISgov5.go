@@ -33,8 +33,8 @@ func main() {
 
 	refs := get_fasta(refLib)
 	refseq := s.ToUpper(refs[geneID])
-	rawseq := getWholeSeq(refseq, leftSeq, rightSeq) // intact reference
-	PAM_pos := s.Index(rawseq, sgRNA) + len(sgRNA)   // PAM positions in the intact segments defined by the two flanking sequences
+	rawseq := getWholeSeq(refseq, leftSeq, rightSeq)   // intact reference
+	PAM_pos := s.Index(rawseq, sgRNA) + len(sgRNA) + 1 // PAM positions in the intact segments defined by the two flanking sequences, 1-based
 	//refseqRC := ReverseComplement(refseq)
 	rawseqRC := ReverseComplement(rawseq) // intact reference
 	// for k := range refs {
@@ -46,13 +46,14 @@ func main() {
 	check(err)
 	defer outfile.Close()
 	w := bufio.NewWriter(outfile)
+	w.WriteString("Intact reference sequence," + rawseq + "\n\n") // for comparison
 	w.WriteString("fastq_file,number_of_matched_reads,number_of_reads_with_intact_gRNA,%intact_gRNA,total_indel,%indel,number_of_reads_with_leftSeq,number_of_reads_with_rightSeq,nleftSeq/nrightSeq,")
 	//w.WriteString("#1_indel,#1_indel_count,#2_indel,#2_indel_count,#3_indel,#3_indel_count,#4_indel,#4_indel_count,#5_indel,#5_indel_count,#6_indel,#6_indel_count,")
 	//w.WriteString("#7_indel,#7_indel_count,#8_indel,#8_indel_count,#9_indel,#9_indel_count,#10_indel,#10_indel_count\n")
-	w.WriteString("#1_indel,#1_count,#1_%,#1_indel_seq,#1_ref,#1_alt,#1_pos,")
-	w.WriteString("#2_indel,#2_count,#2_%,#2_indel_seq,#2_ref,#2_alt,#2_pos,")
-	w.WriteString("#3_indel,#3_count,#3_%,#3_indel_seq,#3_ref,#3_alt,#3_pos,")
-	w.WriteString("#4_indel,#4_count,#4_%,#4_indel_seq,#4_ref,#4_alt,#4_pos\n")
+	w.WriteString("#1_indel,#1_count,#1_%,#1_seq,#1_ref,#1_alt,#1_bp_left_of_PAM,")
+	w.WriteString("#2_indel,#2_count,#2_%,#2_seq,#2_ref,#2_alt,#2_bp_left_of_PAM,")
+	w.WriteString("#3_indel,#3_count,#3_%,#3_seq,#3_ref,#3_alt,#3_bp_left_of_PAM,")
+	w.WriteString("#4_indel,#4_count,#4_%,#4_seq,#4_ref,#4_alt,#4_bp_left_of_PAM\n")
 	top10seq, err := os.Create("top10_reads_" + output + ".txt")
 	check(err)
 	defer top10seq.Close()
@@ -338,7 +339,7 @@ func check_indel(wtSeq, indelSeq string) (int, string, string, int) { // return 
 		diffLen := indelLen - wtLen
 		ref := wtSeq[(pos - 1):pos]
 		alt := indelSeq[(pos - 1):(pos + diffLen)]
-		return indelLen - wtLen, ref, alt, pos
+		return indelLen - wtLen, ref, alt, pos // here position is the position of the first mismatch, or 1 based position for ref allele
 	}
 
 }
