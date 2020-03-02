@@ -322,24 +322,69 @@ func check_indel(wtSeq, indelSeq string) (int, string, string, int) { // return 
 	if wtLen == indelLen {
 		return 0, "NA", "NA", 0
 	}
-	pos := 0
-	for i := 0; i < wtLen; i++ {
-		if wtSeq[i] != indelSeq[i] { // where the indel happens
-			pos = i
-			break
-		}
-	}
+	/*
+		pos := 0
+		for i := 0; i < wtLen; i++ {
+			if wtSeq[i] != indelSeq[i] { // where the indel happens
+				pos = i
+				break
+			}
+		}*/
 
 	if wtLen > indelLen { // deletion
+		pos, _, _, _ := Align(wtSeq, indelSeq)
 		diffLen := wtLen - indelLen
 		ref := wtSeq[(pos - 1):(pos + diffLen)]
 		alt := wtSeq[(pos - 1):pos]
 		return indelLen - wtLen, ref, alt, pos
 	} else { // insertion
+		pos, _, _, _ := Align(indelSeq, wtSeq)
 		diffLen := indelLen - wtLen
 		ref := wtSeq[(pos - 1):pos]
 		alt := indelSeq[(pos - 1):(pos + diffLen)]
 		return indelLen - wtLen, ref, alt, pos // here position is the position of the first mismatch, or 1 based position for ref allele
 	}
 
+}
+
+// align two sequences with only difference is indel
+// suppose a is longer or equal to b
+func Align(long, short string) (int, int, string, string) { // gap position, nmismatch besides gap, a alginment, b alignment
+	aLen := len(long)
+	bLen := len(short)
+	minLen := bLen
+	if aLen == bLen {
+		return 0, score(long, short), long, short
+	}
+	ngap := aLen - bLen
+
+	gaps := s.Repeat("-", ngap)
+	minPosition := 0
+	minScore := minLen // min mismatch
+
+	for i := 0; i < minLen; i++ {
+		newlong := long[:i] + long[i+ngap:] // sliding window, each time remove ngap bp
+		ss := score(newlong, short)         // n mismatch
+		//fmt.Println(ss)
+
+		if ss <= minScore {
+			minPosition = i
+			minScore = ss
+		} else {
+			break
+		}
+	}
+	return minPosition, minScore, long, short[:minPosition] + gaps + short[minPosition:]
+}
+
+// count mismatches between two EQUAL length seqeunces
+func score(a, b string) int {
+	aLen := len(a)
+	ss := 0 // mismatches
+	for i := 0; i < aLen; i++ {
+		if a[i] != b[i] {
+			ss += 1
+		}
+	}
+	return ss
 }
