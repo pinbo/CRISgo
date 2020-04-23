@@ -34,6 +34,7 @@ func main() {
 	refs := get_fasta(refLib)
 	refseq := s.ToUpper(refs[geneID])
 	rawseq := getWholeSeq(refseq, leftSeq, rightSeq)   // intact reference
+	// PAM position: suppose the sgRNA is in the forward strand
 	PAM_pos := s.Index(rawseq, sgRNA) + len(sgRNA) + 1 // PAM positions in the intact segments defined by the two flanking sequences, 1-based
 	//refseqRC := ReverseComplement(refseq)
 	rawseqRC := ReverseComplement(rawseq) // intact reference
@@ -100,7 +101,7 @@ func main() {
 			}
 			w2.WriteString(fmt.Sprintf("%s  %d\n", kk.Key, kk.Value))
 			if n < 4 && rawseq != kk.Key {
-				indelSize, ref, alt, pos := check_indel(rawseq, kk.Key)
+				indelSize, ref, alt, pos := check_indel(rawseq, kk.Key) // pos is 1 based position for ref allele
 				distance2PAM := PAM_pos - pos // distance between ref to PAM on the left of PMA
 				w.WriteString(fmt.Sprintf("%d,%d,%.1f,%s,%s,%s,%d,", indelSize, kk.Value, float64(kk.Value)/float64(nmatch)*100, kk.Key, ref, alt, distance2PAM))
 			}
@@ -143,7 +144,8 @@ func main() {
 			w2.WriteString(fmt.Sprintf("%s  %d\n", indelSeq, kk.Value))
 			if n < 4 && rawseq != indelSeq {
 				indelSize, ref, alt, pos := check_indel(rawseq, indelSeq)
-				w.WriteString(fmt.Sprintf("%d,%d,%.1f,%s,%s,%s,%d,", indelSize, kk.Value, float64(kk.Value)/float64(nmatch)*100, indelSeq, ref, alt, pos))
+				distance2PAM := PAM_pos - pos // distance between ref to PAM on the left of PMA
+				w.WriteString(fmt.Sprintf("%d,%d,%.1f,%s,%s,%s,%d,", indelSize, kk.Value, float64(kk.Value)/float64(nmatch)*100, indelSeq, ref, alt, distance2PAM))
 			}
 			n += 1
 		}
