@@ -32,7 +32,14 @@ func main() {
 	// fmt.Println(ReverseComplement("ATGCggccaatt"))
 
 	refs := get_fasta(refLib)
-	refseq := s.ToUpper(refs[geneID])
+	// check whether the gene ID is in the reference file.
+	refseq, ok := refs[geneID]
+    if ok {
+		refseq = s.ToUpper(refseq)
+    } else {
+        fmt.Println("Check your gene name! It is not in the reference.")
+		os.Exit(1)
+    }
 	rawseq := getWholeSeq(refseq, leftSeq, rightSeq)   // intact reference
 	// PAM position: suppose the sgRNA is in the forward strand
 	PAM_pos := s.Index(rawseq, sgRNA) + len(sgRNA) + 1 // PAM positions in the intact segments defined by the two flanking sequences, 1-based
