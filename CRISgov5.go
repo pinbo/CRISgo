@@ -322,7 +322,11 @@ func check_indel(wtSeq, indelSeq string) (int, string, string, int) { // return 
 	wtLen := len(wtSeq) // wt sequence length
 	indelLen := len(indelSeq)
 	if wtLen == indelLen {
-		return 0, "NA", "NA", 0
+		for i := 0; i < wtLen; i++ {
+			if wtSeq[i] != indelSeq[i] {
+				return 0, wtSeq[i:i+1], indelSeq[i:i+1], i+1 // indel size, ref, alt, SNP position 1-based
+			}
+		}
 	}
 	/*
 		pos := 0
