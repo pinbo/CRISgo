@@ -14,7 +14,7 @@ To understand how it works, check out the **README** of [CRISpyJZ](https://githu
 
 2. The strand option was removed. So you need give all 3 sequences in the arguments from the same strand of the reference file.
 
-## Differences among CRISgov2, CRISgov3, and CRISgov4
+## Differences among CRISgov2, CRISgov3, CRISgov4, and CRISgov5
 
 - **CRISgov2** and **CRISgov3** process ".fastq" files, which are uncompressed. You need to uncompress the ".fastq.gz" files first. In window system, you can use 7-Zip to unzip all the .gz files.
 
@@ -23,6 +23,10 @@ To understand how it works, check out the **README** of [CRISpyJZ](https://githu
 - **CRISgov2** searches the input sequences in all the "fastq" files first, then searches using the reverse complements of the input sequences to search on those fastq files that have 0 matches in the first round search. So it is "orientation" insenstive.
 
 - **CRISgov3** and **CRISgov4** suppose your input sequences on the 'xxxx_R1_001.fastq.gz' files, so first search on these files, then use the reverse complements of your input sequences to search 'xxxx_R2_001.fastq.gz' files.
+
+- **CRISgov5**, a significant upgrade compared to **CRISgov4**, process "fastq.gz" file in the working directory and output the top 4 types of indels or SNPs (not include intact sequences): location relative to PAM, reference allele, alternative allele (mutation), and mutation read frequency.
+
+
 
 ## Usage
 
@@ -47,7 +51,7 @@ Command line parameters:
 
 Two files will be created:
 
-1. A csv file with the editing efficiency and top 10 indels in each fastq file.
+1. A csv file with the editing efficiency and top 10 indels in each fastq file (**CRISgov5** only presents top 4 indels/SNPs in the csv file; SNP type 0 means SNPs, positive numbers mean insertion, and negative numbers mean deletion).
 
 2. A txt file with names "top10_reads_xxxx.txt" that lists the top 10 most abundant reads in each fastq file.
 
